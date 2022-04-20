@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:c3_4_maps_app/blocs/blocs.dart';
@@ -18,6 +17,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<GpsBloc>( create: (_) => GpsBloc(), ),
         BlocProvider<LocationBloc>( create: (_) => LocationBloc(), ),
+        BlocProvider<MapBloc>( create: (_) => MapBloc(), ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

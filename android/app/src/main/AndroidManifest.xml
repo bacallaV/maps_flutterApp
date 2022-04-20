@@ -10,6 +10,10 @@
         android:label="c3_4_maps_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBd3-e82RGQbCj2CcZX8x8Poghu5y2qd4A"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

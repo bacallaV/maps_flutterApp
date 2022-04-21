@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<GpsBloc>( create: (_) => GpsBloc(), ),
         BlocProvider<LocationBloc>( create: (_) => LocationBloc(), ),
-        BlocProvider<MapBloc>( create: (_) => MapBloc(), ),
+        BlocProvider<MapBloc>( create: (blocContext) => MapBloc( locationBloc: BlocProvider.of<LocationBloc>(blocContext) ), ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

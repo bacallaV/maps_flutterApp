@@ -6,6 +6,8 @@ import 'package:c3_4_maps_app/blocs/blocs.dart';
 
 import 'package:c3_4_maps_app/screens/screens.dart';
 
+import 'package:c3_4_maps_app/services/services.dart' show TrafficService;
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<GpsBloc>( create: (_) => GpsBloc(), ),
         BlocProvider<LocationBloc>( create: (_) => LocationBloc(), ),
         BlocProvider<MapBloc>( create: (blocContext) => MapBloc( locationBloc: BlocProvider.of<LocationBloc>(blocContext) ), ),
+        BlocProvider<SearchBloc>( create: (_) => SearchBloc( trafficService: TrafficService() ) ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

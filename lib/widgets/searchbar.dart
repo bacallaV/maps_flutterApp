@@ -9,12 +9,21 @@ import 'package:c3_4_maps_app/blocs/blocs.dart';
 class SearchBar extends StatelessWidget {
   const SearchBar ({Key? key}) : super(key: key);
 
-  void onSearchResults( BuildContext context, SearchResult searchResult ) {
+  void onSearchResults( BuildContext context, SearchResult searchResult )  async {
     if( searchResult.cancel ) return;
 
     if( searchResult.manual ) {
       final searchBloc = BlocProvider.of<SearchBloc>(context);
       searchBloc.add( OnActivateManualMarkerEvent() );
+    }
+
+    if( searchResult.position != null ) {
+      final searchBloc = BlocProvider.of<SearchBloc>(context);
+      final locationBloc = BlocProvider.of<LocationBloc>(context);
+      final mapBloc = BlocProvider.of<MapBloc>(context);
+
+      final destination = await searchBloc.getCoorsStartToEnd( locationBloc.state.lastKnownLocation!, searchResult.position! );
+      await mapBloc.drawRoutePolyline( destination );
     }
   }
 

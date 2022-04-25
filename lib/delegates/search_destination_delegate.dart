@@ -61,13 +61,23 @@ class SearchDestinationDelegate extends SearchDelegate<SearchResult> {
 
     final history = BlocProvider.of<SearchBloc>(context).state.history;
 
-    return ListView.builder(
-      itemCount: history.length,
-      itemBuilder: ( context, i ) => _SearchTile(
-        place: history[i],
-        history: true,
-        close: close,
-      ),
+    return ListView(
+      children: [
+        ListTile(
+          leading: Icon( Icons.place_outlined, color: Colors.blue ),
+          title: Text( 'Marcar manualmente', ),
+          onTap: () => close(
+            context,
+            SearchResult( cancel: false, manual: true ),
+          ),
+        ),
+
+        ...history.map( (place) => _SearchTile(
+          place: place,
+          history: true,
+          close: close,
+        )).toList(),
+      ]
     );
   }
 

@@ -47,6 +47,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Future<RouteDestination> getCoorsStartToEnd( LatLng start, LatLng end ) async {
     final trafficResponse = await trafficService.getCoorsStartToEnd( start, end );
 
+    // Información del destino
+    final endPlace = await trafficService.getPlaceByCoors( end );
+
     // Decodificar Geometry
     final points = decodePolyline( trafficResponse.routes[0].geometry, accuracyExponent: 6 ); // accuaracyExponent es 6 porque MapBox trabaja con 6 decimales.
 
@@ -55,7 +58,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     return RouteDestination(
       points: latLngList,
       duration: trafficResponse.routes[0].duration,
-      distance: trafficResponse.routes[0].distance
+      distance: trafficResponse.routes[0].distance,
+      endPlace: endPlace,
     );
   }
 
